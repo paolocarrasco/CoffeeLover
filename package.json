@@ -1,0 +1,17 @@
+{
+  "name": "coffee-lover",
+  "version": "0.0.1",
+  "description": "Manages the information in the Coffee Lover shop",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/paolocarrasco/CoffeeLover.git"
+  },
+  "keywords": [
+    "rest",
+    "express",
+    "json"
+  ],
+  "author": "Paolo Carrasco",
+  "license": "BSD"
+}
