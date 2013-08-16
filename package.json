@@ -13,5 +13,7 @@
     "json"
   ],
   "author": "Paolo Carrasco",
-  "license": "BSD"
+  "license": "BSD",
+  "devDependencies": {
+  }
 }
