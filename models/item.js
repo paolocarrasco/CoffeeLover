@@ -13,6 +13,26 @@ module.exports = function () {
 	    if(rawItem.size) _size = rawItem.size;
     };
     
+    me.validate = function() {
+        var result = {};
+        var isValid = true
+        var details = {};
+        
+        if(!_name) {
+            isValid = false;
+            details.name = 'The name is not valid for the item';
+        }
+        if(!_quantity) {
+            isValid = false;
+            details.quantity = 'A quantity is required for the item';
+        }
+        
+        result.valid = isValid;
+        result.details = details;
+        
+        return result;
+    };
+    
     me.getName = function() {
         return _name;
     };

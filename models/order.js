@@ -1,4 +1,5 @@
-var _ = require('underscore');
+var _ = require('underscore'),
+    Item = require('./item');
 
 var locations = ['takeAway', 'drinkIn'];
 
@@ -10,8 +11,21 @@ module.exports = function () {
         _cost = 0;
         
     me.hydrateFrom = function(rawOrder) {
+        var rawItems = rawOrder.items;
+        
         if(rawOrder.id) _id = rawOrder.id;
-        if(rawOrder.items) _items = rawOrder.items;
+        if(rawItems) {
+            if(!_.isArray(rawItems)) 
+                rawItems = [rawItems];
+            
+            var items = [];
+            _.each(rawItems, function(rawItem)  {
+                var item = new Item();
+                item.hydrateFrom(rawItem);
+                items.push(item);
+            });
+            _items = items;
+        }
         if(rawOrder.location) _location = rawOrder.location;
         if(rawOrder.cost) _cost = rawOrder.cost;
     };
@@ -36,24 +50,17 @@ module.exports = function () {
             isValid = false;
         }
         
-        if(!_.isArray(_items)) {
-            details.items = 'It is not a valid collection of items';
-            isValid = false;
-        }
-        
-        /*
-        if(_.isArray(_items)) {
-            isValid = _.every(_items, function(item) {
-                if(item.isValid && item.isValid()) return true;
+        if(_items) {
+            isValid = isValid && _.all(_items, function(item) {
+                var validationResult = item.validate();
+                if(validationResult.valid) {
+                    return true;
+                }
                 details.items = 'Any of the items is not valid';
                 return false;
             });
         }
-        else {
-            details.items = 'It is not a valid collection of items';
-            isValid = false;
-        }
-        */
+        
         result.valid = isValid;
         result.details = details;
         return result;
