@@ -18,4 +18,4 @@ app
     .put(orders.UPDATE, orders.update)
     .delete(orders.DELETE, orders.delete);
     
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT, process.env.IP);

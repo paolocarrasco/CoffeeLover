@@ -1,4 +1,4 @@
-var Order = require('models/order');
+//var Order = require('models/order');
 var orders = [];
 
 var ordersBase = '/orders';
@@ -11,8 +11,8 @@ exports.UPDATE = ordersIdUrl;
 exports.DELETE = ordersIdUrl;
 
 exports.create = function(req, res) {
-    req.body;
-    var order = new Order();
+    var order = req.body;
+    //var order = new Order();
     orders.push(order);
     res
         .status(201)
