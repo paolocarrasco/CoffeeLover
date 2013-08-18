@@ -1,25 +1,26 @@
-//var Order = require('models/order');
+var OrderService = require('../services/order-service');
 var orders = [];
 
-var ordersBase = '/orders';
-var ordersIdUrl = '/orders/:id'
+var Orders = {},
+    ordersBase = '/orders',
+    ordersIdUrl = '/orders/:id';
 
-exports.GET_URL = ordersIdUrl;
-exports.LIST_URL = ordersBase;
-exports.CREATE = ordersBase;
-exports.UPDATE = ordersIdUrl;
-exports.DELETE = ordersIdUrl;
+Orders.GET_URL = ordersIdUrl;
+Orders.LIST_URL = ordersBase;
+Orders.CREATE = ordersBase;
+Orders.UPDATE = ordersIdUrl;
+Orders.DELETE = ordersIdUrl;
 
-exports.create = function(req, res) {
-    var order = req.body;
-    //var order = new Order();
-    orders.push(order);
+var orderService = new OrderService();
+
+Orders.create = function(req, res) {
+    orderService.create(req.body);
     res
         .status(201)
         .end();
 };
     
-exports.get = function(req, res) {
+Orders.get = function(req, res) {
     var orderId = req.params.id;
     if(orderId in orders) {
         var order = orders[orderId];
@@ -31,11 +32,11 @@ exports.get = function(req, res) {
     res.end()
 };
 
-exports.list = function(req, res) {
-        res.json(orders);
-    };
+Orders.list = function(req, res) {
+    res.json(orders);
+};
     
-exports.update = function(req, res) {
+Orders.update = function(req, res) {
     var orderId = req.params.id;
     if(orderId in orders) {
         var updatedOrder = req.body;
@@ -50,9 +51,9 @@ exports.update = function(req, res) {
         res.status(404);
     }
     res.end();
-}
+};
 
-exports.delete = function(req, res) {
+Orders.delete = function(req, res) {
     var orderId = req.params.id;
     if(orderId in orders) {
         orders[orderId].status = 'removed';
@@ -61,4 +62,6 @@ exports.delete = function(req, res) {
         res.status(404);
     }
     res.end();
-}
+};
+
+module.exports = Orders;

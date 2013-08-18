@@ -1,15 +1,16 @@
 var _ = require('underscore'),
     Item = require('./item');
 
-var locations = ['takeAway', 'drinkIn'];
+var locations = ['TakeAway', 'DrinkIn']
 
-module.exports = function () {
+var Order = function () {
+
     var me = this,
         _id,
         _items = [],
-        _location = 'takeAway',
+        _location = locations[0],
         _cost = 0;
-        
+
     me.hydrateFrom = function(rawOrder) {
         var rawItems = rawOrder.items;
         
@@ -35,7 +36,7 @@ module.exports = function () {
         var details = {};
         var isValid = true;
         
-        if(isNaN(_id)) {
+        if(_id && isNaN(_id)) {
             details.id = 'ID is not a number';
             isValid = false;
         }
@@ -50,8 +51,8 @@ module.exports = function () {
             isValid = false;
         }
         
-        if(_items) {
-            isValid = isValid && _.all(_items, function(item) {
+        if(_items.length) {
+            var validItems = _.all(_items, function(item) {
                 var validationResult = item.validate();
                 if(validationResult.valid) {
                     return true;
@@ -59,11 +60,20 @@ module.exports = function () {
                 details.items = 'Any of the items is not valid';
                 return false;
             });
+            
+            if(!validItems) isValid = false;
+        } 
+        else {
+            details.items = 'The order should have at least an item';
+            isValid = false;
         }
         
         result.valid = isValid;
         result.details = details;
         return result;
+    };
+    me.setId = function(id) {
+        _id = id;
     };
     
     me.getId = function() {
@@ -81,5 +91,10 @@ module.exports = function () {
     me.getCost = function() {
         return _cost;
     };
+    
 };
 
+Order.TAKE_AWAY = locations[0];
+Order.DRINK_IN = locations[1];
+
+module.exports = Order;
