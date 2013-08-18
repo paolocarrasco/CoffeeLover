@@ -18,4 +18,6 @@ app
     .put(orders.UPDATE, orders.update)
     .delete(orders.DELETE, orders.delete);
     
-app.listen(process.env.PORT, process.env.IP);
+app.listen(process.env.PORT, process.env.IP, function() {
+    console.log('Coffee Lover is ready to share coffee love to everyone');
+});
