@@ -92,6 +92,14 @@ var Order = function () {
         return _cost;
     };
     
+    me.raw = function() {
+        return {
+            id: _id,
+            cost: _cost,
+            location: _location,
+            items: _.map(_items, function(item) { return item.raw(); })
+        };
+    };
 };
 
 Order.TAKE_AWAY = locations[0];

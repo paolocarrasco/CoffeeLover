@@ -4,15 +4,19 @@ var _ = require('underscore'),
 var OrderService = function() {
     var me = this;
     var lastId = 0;
+    var orders = [];
     
     me.create = function(rawOrder) {
-        if(!rawOrder) throw new Error('The order is missing');
+        if(!rawOrder) throw new Error('The order intended to create is missing');
+        
         var order = new Order();
         order.hydrateFrom(rawOrder);
-        var validationResult = _.isFunction(order.validate) && order.validate();
-        if(!validationResult || !validationResult.valid) {
+        
+        var validationResult = order.validate();
+        
+        if(!validationResult.valid) {
             var details = validationResult.details;
-            var errorMessage = 'The order is not valid';
+            var errorMessage = 'The order intended to create is not valid';
             if(details) {
                 for(var name in details) {
                     errorMessage.concat('. Details: \n' + details[name]);
@@ -20,8 +24,18 @@ var OrderService = function() {
             }
             throw new Error(errorMessage);
         }
+        
         order.setId(++lastId);
+        orders.push(order);
+        
         return order;
     };
+    
+    me.getBy = function(id) {
+        if(!id) throw new Error('The ID of the order to retrieve should have a value');
+        var orderFound = _.find(orders, function(order) { return order.getId() == id});
+        return orderFound;
+    };
+    
 };
 module.exports = OrderService;

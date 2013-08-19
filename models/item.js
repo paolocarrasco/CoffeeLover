@@ -10,12 +10,12 @@ module.exports = function () {
         if(rawItem.name) _name = rawItem.name;
         if(rawItem.quantity) _quantity = rawItem.quantity;
         if(rawItem.milk) _milk = rawItem.milk;
-	    if(rawItem.size) _size = rawItem.size;
+        if(rawItem.size) _size = rawItem.size;
     };
     
     me.validate = function() {
         var result = {};
-        var isValid = true
+        var isValid = true;
         var details = {};
         
         if(!_name) {
@@ -48,4 +48,13 @@ module.exports = function () {
     me.getSize = function() {
         return _size;
     };
-}
+    
+    me.raw = function() {
+        return {
+            name : _name,
+            quantity: _quantity,
+            milk: _milk,
+            size: _size
+        };
+    };
+};

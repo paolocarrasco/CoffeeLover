@@ -1,4 +1,4 @@
-var Orders = require("../../resources/orders");
+var Orders = require("../../resources/order-resource");
     //request = require("supertest");
 describe('Order', function() {
     beforeEach(function() {

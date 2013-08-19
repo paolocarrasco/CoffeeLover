@@ -14,17 +14,22 @@ Orders.DELETE = ordersIdUrl;
 var orderService = new OrderService();
 
 Orders.create = function(req, res) {
-    orderService.create(req.body);
-    res
-        .status(201)
-        .end();
+    var order = orderService.create(req.body);
+    if(order) {
+        res
+            .status(201)
+            .location('/orders/' + order.getId())
+            .json(order.raw());
+    }
+    else {
+        res.status(304).end();
+    }
 };
     
 Orders.get = function(req, res) {
-    var orderId = req.params.id;
-    if(orderId in orders) {
-        var order = orders[orderId];
-        res.json(order);
+    var order = orderService.getBy(req.params.id);
+    if(order) {
+        res.json(order.raw());
     }
     else {
         res.status(404);
