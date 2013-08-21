@@ -1,6 +1,6 @@
 var express = require('express'),
-    orders = require('./resources/order-resource'),
-    coffeeShop = require('./resources/coffee-shop-resource');
+    orderResource = require('./resources/order-resource'),
+    coffeeShopResource = require('./resources/coffee-shop-resource');
 
 var app = express();
 
@@ -10,14 +10,14 @@ app.use(app.router);
 
 app
     // ---- Coffee Shop ---- //
-    .options(coffeeShop.RESOURCES_URL, coffeeShop.resources) 
+    .options(coffeeShopResource.RESOURCES_URL, coffeeShopResource.resources) 
     // ---- Orders ----- //
-    .get(orders.GET_URL, orders.get)
-    .get(orders.LIST_URL, orders.list)
-    .post(orders.CREATE, orders.create)
-    .put(orders.UPDATE, orders.update)
-    .delete(orders.DELETE, orders.delete);
-    
+    .get(orderResource.GET_URL, orderResource.get)
+    .get(orderResource.LIST_URL, orderResource.list)
+    .post(orderResource.CREATE, orderResource.create)
+    .put(orderResource.UPDATE, orderResource.update)
+    .delete(orderResource.DELETE, orderResource.delete);
+
 app.listen(process.env.PORT, process.env.IP, function() {
-    console.log('Ready to share caffeinated love to everyone! (for just a few dollars');
+    console.log('Ready to share caffeinated love to everyone! ... and for just a few dollars');
 });
