@@ -12,7 +12,7 @@ app
     .put(orderResource.UPDATE, orderResource.update)
     .delete(orderResource.DELETE, orderResource.delete);
 
-describe('Order', function() {
+describe('OrderResource', function() {
     
     describe('#list()', function() {
         it('should return nothing when there are no orders', function(done) {

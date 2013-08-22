@@ -7,5 +7,5 @@ var resources = [
 exports.RESOURCES_URL = '/';
 
 exports.resources = function(req, res) {
-        res.json(resources);
-    }
+    res.json(resources);
+};

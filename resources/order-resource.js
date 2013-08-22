@@ -1,4 +1,5 @@
-var OrderService = require('../services/order-service');
+var _ = require("underscore"),
+    OrderService = require("../services/order-service");
 
 var orderResource = {},
     ordersBase = '/orders',
@@ -26,7 +27,8 @@ orderResource.create = function(req, res) {
 };
     
 orderResource.get = function(req, res) {
-    var order = orderService.getBy(req.params.id);
+    var orderId = req.params.id;
+    var order = orderService.getBy(orderId);
     if(order) {
         res.json(order.raw());
     }
@@ -38,6 +40,8 @@ orderResource.get = function(req, res) {
 
 orderResource.list = function(req, res) {
     var orders = orderService.list();
+    // TODO it would be better to move this to another object
+    orders = _.map(orders, function(order) { return order.raw(); });
     res.json(orders);
 };
 
@@ -62,7 +66,7 @@ orderResource.delete = function(req, res) {
     var orderId = req.params.id;
     var order = orderService.delete(orderId);
     if(order) {
-        res.json(order);
+        res.json(order.raw());
     }
     else {
         res.status(404);
