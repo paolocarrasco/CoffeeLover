@@ -1,4 +1,6 @@
-var OrderService = require('../../services/order-service');
+var _ = require("underscore"),
+    o = require("../../utils/object-utils"),
+    OrderService = require("../../services/order-service");
 
 var orderExample = {cost: 3.4, items: {name: 'mocaccino', quantity: 2}};
         
@@ -19,8 +21,8 @@ describe('OrderService', function() {
         });
         
         it('should generate different IDs for created orders', function() {
-            var order1 = orderExample;
-            var order2 = {cost: 5.4, items: [{name: 'capuccino', quantity: 5}, {name: 'expresso', quantity: 1}]};
+            var order1 = _.extend(orderExample);
+            var order2 = _.extend(orderExample);
             order1 = orderService.create(order1);
             order2 = orderService.create(order2);
             order1.getId().should.not.be.equal(order2.getId());
@@ -63,4 +65,57 @@ describe('OrderService', function() {
         
     });
     
+    describe('#list()', function() {
+        
+        beforeEach(function() {
+            orderService.create(orderExample);
+            orderService.create(orderExample);
+        });
+        
+        it('should gather all the elements stored', function () {
+            var orders = orderService.list();
+            orders.should.have.length(2);
+        });
+    });
+    
+    describe('#delete()', function() {
+         
+        var order1, order2;
+        
+        beforeEach(function() {
+            order1 = o.clone(orderExample);
+            order2 = o.clone(orderExample);
+            order1 = orderService.create(order1);
+            order2 = orderService.create(order2);
+        });
+        
+        it('should delete the order if the ID exists', function() {
+            var order1Id = order1.getId();
+            orderService.delete(order1Id);
+            var orders = orderService.list();
+            
+            _.each(orders, function (order) {
+                order.getId().should.not.be.equal(order1Id);
+            });
+        });
+        
+        it('should return the order when deleted', function() {
+            var deletedOrder = orderService.delete(order1.getId());
+            deletedOrder.getId().should.be.equal(order1.getId());
+        });
+        
+        it('should decrease the number of items of orders', function() {
+            var total = orderService.list().length;
+            orderService.delete(order2.getId());
+            orderService.list().should.have.length(total - 1);
+        });
+        
+        it('should return nothing when the ID does not exist', function () {
+            should.not.exist(orderService.delete(500));
+        });
+    });
+    
+    describe('#update()', function() {
+        
+    });
 });

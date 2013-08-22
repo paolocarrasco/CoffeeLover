@@ -1,5 +1,6 @@
-var _ = require('underscore'),
-    Order = require('../models/order');
+var _ = require("underscore"),
+    o = require("../utils/object-utils"),
+    Order = require("../models/order");
 
 var OrderService = function() {
     var me = this;
@@ -35,6 +36,24 @@ var OrderService = function() {
         if(!id) throw new Error('The ID of the order to retrieve should have a value');
         var orderFound = _.find(orders, function(order) { return order.getId() == id});
         return orderFound;
+    };
+    
+    me.list = function() {
+        return _.toArray(orders);
+    };
+    
+    me.delete = function(id) {
+        var order = _.find(orders, function (order) {
+            return order.getId() == id;
+        });
+        
+        if(!order) return null;
+        
+        var position = orders.indexOf(order);
+        
+        orders.splice(position, 1);
+        
+        return order;
     };
     
 };

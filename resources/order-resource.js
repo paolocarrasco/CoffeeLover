@@ -1,5 +1,4 @@
 var OrderService = require('../services/order-service');
-var orders = [];
 
 var orderResource = {},
     ordersBase = '/orders',
@@ -38,30 +37,32 @@ orderResource.get = function(req, res) {
 };
 
 orderResource.list = function(req, res) {
+    var orders = orderService.list();
     res.json(orders);
 };
-    
+
 orderResource.update = function(req, res) {
-    var orderId = req.params.id;
-    if(orderId in orders) {
-        var updatedOrder = req.body;
-        var order = orders[orderId];
-        for(var property in updatedOrder) {
-            if(property in order) {
-                order[property] = updatedOrder[property];
-            }
-        }
-    }
-    else {
-        res.status(404);
-    }
+    // var orderId = req.params.id;
+    // if(orderId in orders) {
+    //     var updatedOrder = req.body;
+    //     var order = orders[orderId];
+    //     for(var property in updatedOrder) {
+    //         if(property in order) {
+    //             order[property] = updatedOrder[property];
+    //         }
+    //     }
+    // }
+    // else {
+    //     res.status(404);
+    // }
     res.end();
 };
 
 orderResource.delete = function(req, res) {
     var orderId = req.params.id;
-    if(orderId in orders) {
-        orders[orderId].status = 'removed';
+    var order = orderService.delete(orderId);
+    if(order) {
+        res.json(order);
     }
     else {
         res.status(404);
