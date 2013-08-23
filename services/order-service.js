@@ -1,5 +1,6 @@
+require("../utils/string-utils");
+
 var _ = require("underscore"),
-    o = require("../utils/object-utils"),
     Order = require("../models/order");
 
 var OrderService = function() {
@@ -72,10 +73,6 @@ var OrderService = function() {
             return order.getId() == id;
         });
     }
-};
-
-String.prototype.capitalize = function() {
-    return this[0].toUpperCase() + this.substr(1);
 };
 
 module.exports = OrderService;
