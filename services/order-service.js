@@ -34,7 +34,7 @@ var OrderService = function() {
     
     me.getBy = function(id) {
         if(!id) throw new Error('The ID of the order to retrieve should have a value');
-        var orderFound = _.find(orders, function(order) { return order.getId() == id});
+        var orderFound = findById(id);
         return orderFound;
     };
     
@@ -43,9 +43,7 @@ var OrderService = function() {
     };
     
     me.delete = function(id) {
-        var order = _.find(orders, function (order) {
-            return order.getId() == id;
-        });
+        var order = findById(id);
         
         if(!order) return null;
         
@@ -56,5 +54,28 @@ var OrderService = function() {
         return order;
     };
     
+    me.update = function(updatedRawOrder) {
+        if(!updatedRawOrder) throw new Error('The received order is null');
+        var order = findById(updatedRawOrder.id);
+        
+        for(var property in updatedRawOrder) {
+            if('set' + property.capitalize() in order) {
+                order['set' + property.capitalize()](updatedRawOrder[property]);
+            }
+        }
+        
+        return order;
+    };
+    
+    function findById(id) {
+        return _.find(orders, function (order) {
+            return order.getId() == id;
+        });
+    }
 };
+
+String.prototype.capitalize = function() {
+    return this[0].toUpperCase() + this.substr(1);
+};
+
 module.exports = OrderService;

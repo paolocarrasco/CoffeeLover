@@ -115,7 +115,33 @@ describe('OrderService', function() {
         });
     });
     
-    describe('#update()', function() {
+    describe('#update(renewedOrder)', function() {
         
+        var orderBase;
+        
+        beforeEach(function() {
+            orderBase = orderService.create(orderExample);
+        });
+        
+        it('should return null if the ID is not set', function() {
+            var updatedOrder = orderService.update({});
+            should.not.exist(updatedOrder);
+        });
+        
+        it('should should throw an error if the order to update is null', function() {
+            (function() { orderService.update(null); }).should.throwError();
+        });
+        
+        it('should should return the complete order when update was a success', function() {
+            var updatedOrder = orderService.update({id : orderBase.getId() });
+            updatedOrder.getId().should.be.equal(orderBase.getId());
+        });
+        
+        it('should update just the properties sent', function() {
+            var newCost = orderBase.getCost() * 1.5;
+            var updatedOrder = orderService.update({id : orderBase.getId(), cost: newCost});
+            updatedOrder.getCost().should.be.equal(newCost);
+            updatedOrder.getLocation().should.be.equal(orderBase.getLocation());
+        });
     });
 });

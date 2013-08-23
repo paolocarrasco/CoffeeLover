@@ -46,19 +46,16 @@ orderResource.list = function(req, res) {
 };
 
 orderResource.update = function(req, res) {
-    // var orderId = req.params.id;
-    // if(orderId in orders) {
-    //     var updatedOrder = req.body;
-    //     var order = orders[orderId];
-    //     for(var property in updatedOrder) {
-    //         if(property in order) {
-    //             order[property] = updatedOrder[property];
-    //         }
-    //     }
-    // }
-    // else {
-    //     res.status(404);
-    // }
+    var orderId = req.params.id;
+    var updatedOrder = req.body;
+    if(updatedOrder) updatedOrder.id = orderId;
+    var order = orderService.update(updatedOrder)
+    if(order) {
+        res.json(order.raw());
+    }
+    else {
+        res.status(404);
+    }
     res.end();
 };
 
@@ -73,5 +70,4 @@ orderResource.delete = function(req, res) {
     }
     res.end();
 };
-
 module.exports = orderResource;

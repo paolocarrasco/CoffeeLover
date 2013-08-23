@@ -86,10 +86,18 @@ var Order = function () {
     
     me.getLocation = function() {
         return _location;
-    }
+    };
+    
+    me.setLocation = function(location) {
+        _location = location;
+    };
     
     me.getCost = function() {
         return _cost;
+    };
+    
+    me.setCost = function(cost) {
+        _cost = cost;
     };
     
     me.raw = function() {
