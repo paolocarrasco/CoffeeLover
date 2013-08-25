@@ -18,9 +18,12 @@
     "express": ">= 3.3.4",
     "underscore": ">= 1.5.1"
   },
-  "devDependencies" : {
+  "devDependencies": {
     "mocha": ">=1.*",
     "should": ">=1.*",
-    "supertest": "*"
+    "supertest": ">=0",
+    "grunt": "0.4.1",
+    "grunt-contrib-jshint": "~0.6.*",
+    "grunt-contrib-watch": "~0.5.*"
   }
 }

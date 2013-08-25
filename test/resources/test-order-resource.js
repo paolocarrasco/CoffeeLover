@@ -1,4 +1,3 @@
-
 var request = require('supertest'),
     express = require('express'),
     orderResource = require('../../resources/order-resource');

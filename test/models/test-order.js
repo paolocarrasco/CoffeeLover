@@ -1,5 +1,4 @@
 var _ = require('underscore'),
-    should = require("should"),
     Order = require('../../models/order');
 
 describe('Order', function(){
@@ -26,7 +25,7 @@ describe('Order', function(){
         it('should copy an hydrated item from the raw order', function() {
             var items = EMPTY_OBJECT;
             order.hydrateFrom({id: 1, items: items});
-            var items = order.getItems()
+            items = order.getItems();
             items.should.have.length(1);
             items[0].should.have.property('hydrateFrom');
         });
@@ -39,7 +38,7 @@ describe('Order', function(){
         it('should copy hydrated items from the raw order', function() {
             var items = [EMPTY_OBJECT, EMPTY_OBJECT];
             order.hydrateFrom({id: 1, items: items});
-            var items = order.getItems()
+            items = order.getItems();
             items.should.have.length(2);
             _.each(items, function(item) {
                 item.should.have.property('hydrateFrom');

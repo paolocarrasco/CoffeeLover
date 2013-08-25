@@ -1,5 +1,4 @@
-var should = require('should'),
-    Item = require('../../models/item');
+var Item = require('../../models/item');
 
 describe('Item', function(){
     var item;
@@ -12,9 +11,9 @@ describe('Item', function(){
         
         it('should copy the properties from the raw item', function() {
             item.hydrateFrom({ name: 'capuccino',
-                quantity : 2,
-                milk : 'non-milk',
-	            size : 'medium'});
+                quantity: 2,
+                milk: 'non-milk',
+                size: 'medium'});
             item.getName().should.be.equal('capuccino');
             item.getQuantity().should.be.equal(2);
             item.getMilk().should.be.equal('non-milk');

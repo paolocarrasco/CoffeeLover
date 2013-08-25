@@ -29,11 +29,13 @@ describe('OrderService', function() {
         });
         
         it('should throw an error when order is null', function() {
-            (function() { orderService.create(null); }).should.throwError();
+            var createOrder = function() { orderService.create({}); };
+            createOrder.should.throwError();
         });
         
         it('should throw an error when the order is not valid', function() {
-            (function() { orderService.create({}); }).should.throwError();
+            var createOrder = function() { orderService.create({}); };
+            createOrder.should.throwError();
         });
         
     });
@@ -59,8 +61,10 @@ describe('OrderService', function() {
         });
         
         it('should throw an error when the order ID is null or empty', function() {
-            (function() { orderService.getBy(null); }).should.throwError();
-            (function() { orderService.getBy(''); }).should.throwError();
+            var getOrder = function() { orderService.getBy(null); };
+            getOrder.should.throwError();
+            var getOrderBy = function() { orderService.getBy(''); };
+            getOrderBy.should.throwError();
         });
         
     });
@@ -129,7 +133,8 @@ describe('OrderService', function() {
         });
         
         it('should should throw an error if the order to update is null', function() {
-            (function() { orderService.update(null); }).should.throwError();
+            var updateOrder = function() { orderService.update(null); };
+            updateOrder.should.throwError();
         });
         
         it('should should return the complete order when update was a success', function() {
