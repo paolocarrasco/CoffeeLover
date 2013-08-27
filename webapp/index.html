@@ -22,41 +22,25 @@
 
         <div class="header-container">
             <header class="wrapper clearfix">
-                <h1 class="title">h1.title</h1>
-                <nav>
+                <h1 class="title">Coffee Lover</h1>
+                <!--nav>
                     <ul>
                         <li><a href="#">nav ul li a</a></li>
                         <li><a href="#">nav ul li a</a></li>
                         <li><a href="#">nav ul li a</a></li>
                     </ul>
-                </nav>
+                </nav-->
             </header>
         </div>
 
         <div class="main-container">
             <div class="main wrapper clearfix">
 
-                <article>
-                    <header>
-                        <h1>article header h1</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec.</p>
-                    </header>
-                    <section>
-                        <h2>article section h2</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
-                    </section>
-                    <section>
-                        <h2>article section h2</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
-                    </section>
-                    <footer>
-                        <h3>article footer h3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
-                    </footer>
-                </article>
-
+                <section id="content-app">
+                    
+                </section>
                 <aside>
-                    <h3>aside</h3>
+                    <h3>Try our Capuccino Express!</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
                 </aside>
 
@@ -65,13 +49,13 @@
 
         <div class="footer-container">
             <footer class="wrapper">
-                <h3>footer</h3>
+                <h3>Node.js Experiment</h3>
             </footer>
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-
+        <script src="js/vendor/mustache.0.7.2.js"></script>
         <script src="js/main.js"></script>
 
         <script>
@@ -79,6 +63,38 @@
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src='//www.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+        
+        <script type="javascript/template" id="order-list">
+            <table>
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Cost</td>
+                        <td>Location</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#orders}}
+                    <tr>
+                        <td>
+                        {{id}}
+                        </td>
+                        <td>
+                        {{cost}}
+                        </td>
+                        <td>
+                        {{location}}
+                        </td>
+                    </tr>
+                    {{/orders}}
+                    {{^orders}}
+                    <tr colspan="3">
+                        <td>There are no orders</td>
+                    </tr>
+                    {{/orders}}
+                </tbody>
+            </table>
         </script>
     </body>
 </html>
