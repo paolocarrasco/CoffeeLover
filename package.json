@@ -12,6 +12,9 @@
     "express",
     "json"
   ],
+  "scripts": {
+    "test": "grunt"
+  },
   "author": "Paolo Carrasco",
   "license": "BSD",
   "dependencies": {
