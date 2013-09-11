@@ -48,6 +48,10 @@ textarea {
     resize: vertical;
 }
 
+.template {
+    display: hidden;
+}
+
 .chromeframe {
     margin: 0.2em 0;
     background: #ccc;
@@ -156,8 +160,6 @@ nav a:hover {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
-
 
 
 
