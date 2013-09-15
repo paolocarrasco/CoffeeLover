@@ -34,17 +34,26 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['lib/**/*.js', 'test/**/*.js']
+        src: 'test/**/*.js'
       }
     },
-    mochaTest: {
+    mochacov: {
+        coverage: {
+          options: {
+            coveralls: {
+              serviceName: 'travis-ci'
+            }
+          }
+        },
         test: {
-            options: {
-              reporter: 'spec',
-              recursive: true,
-              require: ['test/init']
-            },
-            src: ['test/**/*.js']
+          options: {
+            reporter: 'spec',
+            recursive: true,
+            require: 'test/init'
+          }
+        },
+        options: {
+          files: 'test/**/*.js'
         }
     },
     watch: {
@@ -54,17 +63,17 @@ module.exports = function(grunt) {
       },
       lib_test: {
         files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'mochaTest']
+        tasks: ['jshint:lib_test', 'mochacov:test']
       }
     }
   });
   
   // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-mocha-cov');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'mochaTest']);
-
+  grunt.registerTask('default', ['jshint', 'mochacov:test']);
+  grunt.registerTask('travis', ['mochacov:coverage']);
 };

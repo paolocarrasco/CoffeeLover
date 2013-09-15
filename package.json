@@ -14,15 +14,18 @@
     "coffee shop"
   ],
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "blanket": {
+        "pattern": [
+          "src"
+        ]
+    }
   },
   "author": "Paolo Carrasco",
   "license": "BSD",
   "dependencies": {
     "express": ">= 3.3.4",
-    "underscore": ">= 1.5.1",
-    "coveralls": "~2.3.0",
-    "mocha-lcov-reporter": "0.0.1"
+    "underscore": ">= 1.5.1"
   },
   "devDependencies": {
     "mocha": ">=1.*",
@@ -30,6 +33,7 @@
     "supertest": ">=0",
     "grunt": "0.4.1",
     "grunt-contrib-jshint": "~0.6.*",
-    "grunt-contrib-watch": "~0.5.*"
+    "grunt-contrib-watch": "~0.5.*",
+    "grunt-mocha-cov": "0.0.7"
   }
 }
