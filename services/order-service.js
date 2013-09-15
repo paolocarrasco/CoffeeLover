@@ -46,7 +46,7 @@ var OrderService = function() {
     me.delete = function(id) {
         var order = findById(id);
         
-        if(!order) return null;
+        if(!order) return;
         
         var position = orders.indexOf(order);
         
@@ -58,6 +58,8 @@ var OrderService = function() {
     me.update = function(updatedRawOrder) {
         if(!updatedRawOrder) throw new Error('The received order is null');
         var order = findById(updatedRawOrder.id);
+        
+        if(!order) return;
         
         for(var property in updatedRawOrder) {
             if('set' + property.capitalize() in order) {

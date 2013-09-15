@@ -1,12 +1,13 @@
 # humanstxt.org/
 # The humans responsible & technology colophon
 
-# AUTHO
+# AUTHOR
 
     Paolo Carrasco -- paolo.carrasco@gmail.com
 
 # TECHNOLOGY COLOPHON
 
     HTML5, CSS3
-    jQuery, Modernizr
+    jQuery, Backbone
     Node.js
+    

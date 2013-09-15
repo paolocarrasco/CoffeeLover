@@ -30,12 +30,12 @@ describe('OrderService', function() {
         
         it('should throw an error when order is null', function() {
             var createOrder = function() { orderService.create({}); };
-            createOrder.should.throwError();
+            createOrder.should.throw();
         });
         
         it('should throw an error when the order is not valid', function() {
             var createOrder = function() { orderService.create({}); };
-            createOrder.should.throwError();
+            createOrder.should.throw();
         });
         
     });
@@ -55,16 +55,19 @@ describe('OrderService', function() {
             order.getItems().should.have.length(baseOrder.getItems().length);
         });
         
-        it('should return null when the order ID is not found', function() {
+        it('should return nothing when the order ID is not found', function() {
             var order = orderService.getBy(5);
-            should.not.exist(order);
+            expect(order).to.be.undefined;
         });
         
-        it('should throw an error when the order ID is null or empty', function() {
+        it('should throw an error when the order ID is null', function() {
             var getOrder = function() { orderService.getBy(null); };
-            getOrder.should.throwError();
+            getOrder.should.throw();
+        });
+        
+        it('should throw an error when the order ID is empty', function() {
             var getOrderBy = function() { orderService.getBy(''); };
-            getOrderBy.should.throwError();
+            getOrderBy.should.throw();
         });
         
     });
@@ -103,6 +106,13 @@ describe('OrderService', function() {
             });
         });
         
+        it('should keep the orders if the ID does not exist', function() {
+           var total = orderService.list().length;
+            orderService.delete(500);
+           var orders = orderService.list();
+           orders.should.have.length(total);
+        });
+        
         it('should return the order when deleted', function() {
             var deletedOrder = orderService.delete(order1.getId());
             deletedOrder.getId().should.be.equal(order1.getId());
@@ -115,7 +125,7 @@ describe('OrderService', function() {
         });
         
         it('should return nothing when the ID does not exist', function () {
-            should.not.exist(orderService.delete(500));
+            expect(orderService.delete(500)).to.be.undefined;
         });
     });
     
@@ -127,17 +137,22 @@ describe('OrderService', function() {
             orderBase = orderService.create(orderExample);
         });
         
-        it('should return null if the ID is not set', function() {
+        it('should return nothing if the ID does not exist', function() {
+            var updatedOrder = orderService.update({id:500, cost: 81});
+            expect(updatedOrder).to.be.undefined;
+        });
+        
+        it('should return nothing if the ID is not set', function() {
             var updatedOrder = orderService.update({});
-            should.not.exist(updatedOrder);
+            expect(updatedOrder).to.be.undefined;
         });
         
         it('should should throw an error if the order to update is null', function() {
             var updateOrder = function() { orderService.update(null); };
-            updateOrder.should.throwError();
+            updateOrder.should.throw();
         });
         
-        it('should should return the complete order when update was a success', function() {
+        it('should return the complete order when update was a success', function() {
             var updatedOrder = orderService.update({id : orderBase.getId() });
             updatedOrder.getId().should.be.equal(orderBase.getId());
         });

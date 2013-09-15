@@ -21,6 +21,7 @@ module.exports = function(grunt) {
         eqnull: true,
         predef: [ // Used by Mocha and Should
             "should",
+            "expect",
             "describe",
             "it",		
             "before",
@@ -41,7 +42,7 @@ module.exports = function(grunt) {
             options: {
               reporter: 'spec',
               recursive: true,
-              require: ['test/init', 'should']
+              require: ['test/init']
             },
             src: ['test/**/*.js']
         }

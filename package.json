@@ -10,7 +10,8 @@
   "keywords": [
     "rest",
     "express",
-    "json"
+    "json",
+    "coffee shop"
   ],
   "scripts": {
     "test": "grunt"
@@ -19,11 +20,13 @@
   "license": "BSD",
   "dependencies": {
     "express": ">= 3.3.4",
-    "underscore": ">= 1.5.1"
+    "underscore": ">= 1.5.1",
+    "coveralls": "~2.3.0",
+    "mocha-lcov-reporter": "0.0.1"
   },
   "devDependencies": {
     "mocha": ">=1.*",
-    "should": ">=1.*",
+    "chai": "~1.7.2"
     "supertest": ">=0",
     "grunt": "0.4.1",
     "grunt-contrib-jshint": "~0.6.*",

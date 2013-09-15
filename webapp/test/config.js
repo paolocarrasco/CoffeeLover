@@ -7,7 +7,8 @@ requirejs.config({
         "vendor": "../vendor",
         "chai": "../../test/lib/chai",
         "mocha": "../../test/lib/mocha",
-        "jquery": ["//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min", 'vendor/jquery-1.10.1.min']
+        "jquery": ["//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min", 'vendor/jquery-1.10.1.min'],
+        "mustache": "vendor/mustache.0.7.2.min"
     }
 });
 
